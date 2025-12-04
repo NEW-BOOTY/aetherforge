@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>AetherForge Pro – $99/mo</title>
+  <script src="https://js.stripe.com/v3/"></script>
+  <style>
+    body {font-family:system-ui; text-align:center; padding:60px; background:#0d1117; color:white;}
+    button {padding:18px 36px; font-size:20px; background:#238636; color:white; border:none; border-radius:12px; cursor:pointer;}
+  </style>
+</head>
+<body>
+  <h1>AetherForge Pro</h1>
+  <p>Unlimited agents • Real PQC keys • Priority support</p>
+  <h2>$99 / month</h2>
+  <button id="checkout">Buy Pro Now →</button>
+
+  <script>
+    const stripe = Stripe('pk_live_51QBLb42YourRealKeyWillGoHere1234567890'); // ← you’ll replace in 30 sec
+    document.getElementById('checkout').addEventListener('click', () => {
+      stripe.redirectToCheckout({
+        lineItems: [{price: 'price_1QBLb4YourRealPriceIDHere', quantity: 1}],
+        mode: 'subscription',
+        successUrl: 'https://new-booty.github.io/aetherforge/success.html',
+        cancelUrl:  'https://new-booty.github.io/aetherforge/',
+      });
+    });
+  </script>
+</body>
+</html>
