@@ -1,0 +1,27 @@
+<!--
+ * Copyright © 2025 Devin B. Royal.
+ * All Rights Reserved.
+ -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>AetherForge Pro – Purchase Successful</title>
+    <style> body { font-family: system-ui; text-align: center; padding: 60px; background: #0d1117; color: white; } </style>
+</head>
+<body>
+<h1>Thank You!</h1>
+<p>Your AetherForge Pro subscription is active. Check your email for license key.</p>
+<p><a href="https://github.com/new-booty/aetherforge">Return to Repo</a></p>
+<script>
+    // Audit: Log success (prod: POST to /audit endpoint)
+    console.log('Pro purchase complete – session: ' + new URLSearchParams(window.location.search).get('session_id'));
+</script>
+</body>
+</html>
+
+<!--
+ * Copyright © 2025 Devin B. Royal.
+ * All Rights Reserved.
+ -->
