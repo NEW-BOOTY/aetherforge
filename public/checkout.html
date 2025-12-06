@@ -1,0 +1,63 @@
+<!--
+ * Copyright © 2025 Devin B. Royal.
+ * All Rights Reserved.
+ -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>AetherForge Pro – $99/mo</title>
+    <script src="https://js.stripe.com/v3/"></script>
+    <style>
+        body { font-family: system-ui; text-align: center; padding: 60px; background: #0d1117; color: white; }
+        button { padding: 18px 36px; font-size: 20px; background: #238636; color: white; border: none; border-radius: 12px; cursor: pointer; }
+        #loading { display: none; } /* Graceful degradation */
+    </style>
+</head>
+<body>
+<h1>AetherForge Pro</h1>
+<p>Unlimited agents • Real PQC keys • Priority support</p>
+<h2>$99 / month</h2>
+<button id="checkout">Buy Pro Now →</button>
+<div id="loading">Processing...</div>
+
+<script>
+    const stripe = Stripe('pk_live_YOUR_PUBLISHABLE_KEY_HERE'); // ← Replace with live pk_live_...
+    const checkoutButton = document.getElementById('checkout');
+    const loading = document.getElementById('loading');
+
+    checkoutButton.addEventListener('click', async () => {
+      loading.style.display = 'block';
+      checkoutButton.disabled = true;
+
+      try {
+        // Call server to create session (secure, validated)
+        const response = await fetch('/create-checkout-session', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ priceId: 'price_YOUR_PRICE_ID_HERE' }) // ← Replace with live price_...
+        });
+
+        if (!response.ok) {
+          throw new Error('Server error: ' + response.statusText);
+        }
+
+        const { url } = await response.json();
+        stripe.redirectToCheckout({ sessionId: url }); // Redirect to Stripe
+
+      } catch (error) {
+        console.error('Checkout failed:', error); // Prod: Audit log
+        alert('Payment setup failed. Please try again or contact support.');
+        loading.style.display = 'none';
+        checkoutButton.disabled = false;
+      }
+    });
+</script>
+</body>
+</html>
+
+<!--
+ * Copyright © 2025 Devin B. Royal.
+ * All Rights Reserved.
+ -->
